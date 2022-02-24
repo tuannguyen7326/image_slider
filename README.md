@@ -4,7 +4,7 @@
 <hr>
 
 <br/>
-<a href="https://lapis-image-slider.herokuapp.com/slider">Live demo</a>
+<a href="https://lapis-image-slider.herokuapp.comr">Live demo</a>
 
 <br/>
 <hr>
@@ -45,13 +45,6 @@ Image component:
     {/*any child*/}
 </Image>
 ```
-Props:
-<table>
-    <tr>
-        <th>src</th>
-        <td>is link of background image</td>
-    </tr>
-</table>
 
 <br/>
 <hr>
