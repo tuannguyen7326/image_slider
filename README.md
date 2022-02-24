@@ -4,7 +4,7 @@
 <hr>
 
 <br/>
-<a href="https://lapis-image-slider.herokuapp.comr">Live demo</a>
+<a href="https://lapis-image-slider.herokuapp.com/">Live demo</a>
 
 <br/>
 <hr>
