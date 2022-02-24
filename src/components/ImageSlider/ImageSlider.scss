@@ -1,0 +1,13 @@
+.image-slider {
+    //
+    --image-slider-width: 100%;
+    --image-slider-height: 500px;
+    --image-slider-nav-height: 50px;
+    --image-slider-image-height: calc(var(--image-slider-height) - var(--image-slider-nav-height));
+    //
+    display: block;
+    //
+    width: var(--image-slider-width);
+    height: var(--image-slider-height);
+    //
+}
