@@ -95,7 +95,11 @@ export default class Slider extends React.Component<ISliderProps, ISliderState> 
                     </ImageSlider>
 
                     
-                    {/* <ImageSlider focus={1}>
+                    {/* <ImageSlider
+                        focus={1}
+                        interval={2000}
+                        onFocusChange={callBackFunc}
+                    >
                         <Image src='link of image'>
                             your code(option)
                         </Image>
