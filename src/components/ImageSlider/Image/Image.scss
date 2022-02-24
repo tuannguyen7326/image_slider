@@ -1,5 +1,5 @@
 .image-slider {
-    .image-container {
+    >.image-container {
         >.image-wrap {
             $transition-time: 0.6s;
             $transition-delay: calc($transition-time / 2);

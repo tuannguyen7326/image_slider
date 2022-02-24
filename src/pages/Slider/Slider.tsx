@@ -1,9 +1,14 @@
 import * as React from 'react';
-import ImageSlider, { Image } from '../../components/ImageSlider';
+import ImageSlider, { Image} from '../../components/ImageSlider';
+import { IImageSliderOnFocusChangeEventData } from '../../components/ImageSlider/ImageSlider';
+
+
+import './Slider.scss';
 
 export interface ISliderProps {}
 export interface ISliderState {
-    images: string[]
+    images: string[],
+    backgroundIndex: number
 }
 
 interface imageInfo{
@@ -17,7 +22,8 @@ export default class Slider extends React.Component<ISliderProps, ISliderState> 
 
         // init state
         this.state = {
-            images: []
+            images: [],
+            backgroundIndex: NaN
         }
     }
     
@@ -33,8 +39,19 @@ export default class Slider extends React.Component<ISliderProps, ISliderState> 
 
         let images:string[] = imageInfos.map(item => item.href)
  
+        if(images.length === 0) return;
+
         this.setState({
-            images: images
+            images: images,
+            backgroundIndex: 0
+        });
+    }
+
+    private onImageSliderFocusChangeHandle = (e:IImageSliderOnFocusChangeEventData) => {
+        if(e.index >= this.state.images.length) return;
+
+        this.setState({
+            backgroundIndex: e.index
         });
     }
 
@@ -48,10 +65,47 @@ export default class Slider extends React.Component<ISliderProps, ISliderState> 
             return <Image key={index} src={url} />;
         });
 
+        const backgrounds = this.state.images.map((url, index) => {
+            if(isNaN(this.state.backgroundIndex)) return undefined;
+
+            const focus:string = index === this.state.backgroundIndex ? 'focus' : '';
+
+            return (
+                <div key={index} className={`background-wrap ${focus}`}>
+                    <div
+                        className='background'
+                        style={{
+                            backgroundImage: `url('${url}')`
+                        }}
+                    ></div>
+                </div>
+            )
+        });
+
         return (
             <div className='page slider'>
+                <div className='background-container'>
+                    {backgrounds}
+                </div>
                 <section>
-                    <ImageSlider focus={2}>{images}</ImageSlider>
+                    <ImageSlider
+                        onFocusChange={this.onImageSliderFocusChangeHandle}
+                    >
+                        {images}
+                    </ImageSlider>
+
+                    
+                    {/* <ImageSlider focus={1}>
+                        <Image src='link of image'>
+                            your code(option)
+                        </Image>
+                        <Image>
+                            <div>
+                                your code
+                            </div>
+                        </Image>
+                    </ImageSlider> */}
+
                 </section>
             </div>
         );

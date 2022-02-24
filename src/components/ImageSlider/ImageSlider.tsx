@@ -7,9 +7,15 @@ import NavContainer from './NavContainer';
 
 import './ImageSlider.scss';
 
+export interface IImageSliderOnFocusChangeEventData{
+    preventDefault: () => void,
+    index:number,
+}
+
 export interface IImageSliderProps {
-    focus?: number;
-    interval?: number;
+    focus?: number,
+    interval?: number,
+    onFocusChange?:(e:IImageSliderOnFocusChangeEventData)=>void,
 }
 
 export interface IImageSliderState {
@@ -55,9 +61,8 @@ export default class ImageSlider extends React.PureComponent<
 
     // EVENT HANDLE
     private buttonContainerHandleClick = (buttonType: TButtonType) => {
-        this.setState({
-            focus: buttonType === 'left' ? this.preNumber() : this.nextNumber(),
-        });
+        const index:number = buttonType === 'left' ? this.preNumber() : this.nextNumber();
+        this.goTo(index);
     };
 
     private imageSliderHandleMouseEnter = () => {
@@ -69,9 +74,7 @@ export default class ImageSlider extends React.PureComponent<
     };
 
     private navHandleClick = (index: number) => {
-        this.setState({
-            focus: index,
-        });
+        this.goTo(index);
     }
 
     // LOOP
@@ -85,10 +88,30 @@ export default class ImageSlider extends React.PureComponent<
     };
 
     private loop = () => {
-        this.setState({
-            focus: this.nextNumber(),
-        });
+        this.goTo(this.nextNumber());
     };
+
+    private goTo(index:number){
+        let isPreventDefault = false;
+
+        let preventDefault = () => {
+            isPreventDefault = true;
+        }
+
+        if(this.props.onFocusChange){
+            this.props.onFocusChange({
+                preventDefault,
+                index
+            });
+        }
+
+
+        if(isPreventDefault) return;
+        
+        this.setState({
+            focus: index,
+        });
+    }
 
     //
     public componentDidMount() {

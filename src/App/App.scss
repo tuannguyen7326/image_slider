@@ -1,8 +1,9 @@
-.app {
+.App {
     display: block;
     //
     width: 100%;
     min-height: 100vh;
+    overflow: auto;
     .page {
         display: block;
         //
